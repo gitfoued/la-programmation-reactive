@@ -1,3 +1,5 @@
+//exemple de  Observable.create pour créer un Observable personnalisé qui effectue une requête JSON en utilisant jQuery ($.getJSON)
+
 function(window, $) {
 	var getJSON = function(url) {
 		return Observable.create(function(observer) {
@@ -54,9 +56,14 @@ function(window, $) {
 	// 	subscription.unsubscribe();
 	// }, 10);
 }
-		//function(window, getJSON, showMovieLists, showError) {
-	var movieListsSequence =
-    Observable.zip(
+	//exemple de code  RxJS pour créer une séquence d'opérations asynchrones qui récupère des listes de films à partir d'une API Netflix.
+//Observable.zip est utilisé pour combiner plusieurs observables en un seul. Dans ce cas, trois observables sont combinés :
+
+//Le premier observable est une chaîne d'appels de getJSON. Il récupère des informations à partir d'une URL, puis sur la base de ces informations, effectue d'autres appels getJSON.
+//Le deuxième observable est un événement de chargement de la fenêtre (window).
+//Le troisième observable est une fonction qui prend les résultats des deux premiers observables et renvoie les listes de films.
+   function(window, getJSON, showMovieLists, showError) {
+	var movieListsSequence = Observable.zip(
         getJSON("http://api-global.netflix.com/abTestInformation").
             concatMap(function(abTestInformation) {
                 return Observable.zip(
